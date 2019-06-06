@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import styles from './OrderSummary.module.css';
+
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
@@ -22,10 +24,10 @@ class OrderSummary extends Component {
             <Fragment>
                 <h3>Your Order</h3>
                 <p>A delicious burger with the following ingredients stacked:</p>
-                <ul>
+                <ul className={styles.list}>
                     {result}
                 </ul>
-                <p><strong>Total Price: {this.props.price.toFixed(2)}</strong></p>
+                <p className={styles.price}>Total Price: {this.props.price.toFixed(2)}</p>
                 <Button
                     btnType='Danger'
                     clicked={this.props.purchaseCanceled}

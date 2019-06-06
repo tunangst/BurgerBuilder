@@ -9,6 +9,7 @@
     width: 100%;
     box-sizing: border-box;
     display: block;
+    cursor: pointer;
 }
 .NavigationItem a:hover,
 .NavigationItem a:active,
