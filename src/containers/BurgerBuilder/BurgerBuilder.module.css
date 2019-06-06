@@ -1,0 +1,24 @@
+.lable {
+    padding: 10px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 1000px) {
+    .container {
+        flex-direction: row;
+        height: 100%vh;
+        justify-content: space-between;
+    }
+    .burgerContainer {
+        width: 48%;
+        height: 100vh;
+        overflow: scroll;
+
+    }
+    .controlContainer {
+        width: 48%;
+        height: 100vh;
+    }
+}
