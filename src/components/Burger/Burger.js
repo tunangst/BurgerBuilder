@@ -4,12 +4,12 @@ import styles from './Burger.module.css';
 
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const burger = (props) => {
+const Burger = (props) => {
     let listIngredients = props.ingredients.map((ing, index) => {
         return <BurgerIngredient key={ing + index} type={ing} />;
-    })
+    });
 
-    console.log(listIngredients)
+    // console.log(listIngredients)
     if (listIngredients.length === 0) {
         listIngredients = <p>Please build your burger from the ground up!</p>
     }
@@ -21,4 +21,4 @@ const burger = (props) => {
     );
 }
 
-export default burger;
+export default Burger;

@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
+// import axios from '../../axios-orders';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import Loading from '../../components/UI/Loading/Loading';
 
 import styles from './BurgerBuilder.module.css';
 
@@ -39,11 +41,21 @@ class BurgerBuilder extends Component {
             bacon: 0,
             patty: 0,
             "bun-bottom": 1,
-
         },
         totalPrice: 1.00,
         purchasable: false,
-        orderScreen: false
+        orderScreen: false,
+        loading: false
+    }
+    componentDidMount() {
+        console.log(this.props);
+        // axios.get('https://burger-builder-47451.firebaseio.com/ingredientCount.json')
+        //     .then(response => {
+        //         console.log(response)
+        //         debugger;
+        //         this.setState({ ingredientCount: response.data });
+        //     })
+        //     .catch(error => { });
     }
     updatePurchaseState = (numIngredients) => {
         if (numIngredients > 0) {
@@ -53,13 +65,34 @@ class BurgerBuilder extends Component {
         }
     }
     orderScreenHandler = () => {
-        this.setState({ orderScreen: true })
+        this.setState({ orderScreen: true });
     }
     cancelPurchaseHandler = () => {
-        this.setState({ orderScreen: false })
+        this.setState({ orderScreen: false });
     }
     continuePurchaseHandler = () => {
-        alert('You theoretically bought this burger!!')
+        // alert('You theoretically bought this burger!!');
+        // would recalculate price on server so orderer doesn't alter price
+
+
+
+        const queryParams = [];
+        this.state.ingredients.forEach((ing) => {
+            queryParams.push(encodeURIComponent(ing));
+        });
+        queryParams.push('price=' + this.state.totalPrice);
+        console.log(queryParams);
+        const queryString = queryParams.join('>');
+        // debugger;
+        // for (let ing in this.state.ingredients) {
+        //     queryParams.push(encodeURIComponent(ing) + '=' + encodeURIComponent(this.state.ingredients[ing]);)
+        // }
+
+        //push new page to history stack so back arrow will work
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
     addIngredientHandler = (type) => {
         const newIngredients = [type, ...this.state.ingredients];
@@ -111,27 +144,20 @@ class BurgerBuilder extends Component {
         }
     }
 
+
     render() {
         const disabledInfo = { ...this.state.ingredientCount };
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-        return (
-            <Fragment>
-                <Modal
-                    show={this.state.orderScreen}
-                    closeModal={this.cancelPurchaseHandler}
-                >
-                    <OrderSummary
-                        ingredients={this.state.ingredients}
-                        purchaseCanceled={this.cancelPurchaseHandler}
-                        purchaseContinued={this.continuePurchaseHandler}
-                        price={this.state.totalPrice}
-                    />
-                </Modal>
+
+        let orderSummary = null;
+        let burger = <Loading />;
+        if (this.state.ingredients) {
+            burger = (
                 <div className={styles.container}>
                     <div className={styles.burgerContainer}>
-                        <p className={styles.lable}>stack the burger</p>
+                        <p className={styles.label}>stack the burger</p>
                         <Burger ingredients={this.state.ingredients} />
                     </div>
                     <div className={styles.controlContainer}>
@@ -145,6 +171,29 @@ class BurgerBuilder extends Component {
                         />
                     </div>
                 </div>
+            );
+            orderSummary = (
+                <OrderSummary
+                    ingredients={this.state.ingredients}
+                    purchaseCanceled={this.cancelPurchaseHandler}
+                    purchaseContinued={this.continuePurchaseHandler}
+                    price={this.state.totalPrice}
+                />
+            );
+        }
+        if (this.state.loading) {
+            orderSummary = <Loading />;
+        }
+
+        return (
+            <Fragment>
+                <Modal
+                    show={this.state.orderScreen}
+                    closeModal={this.cancelPurchaseHandler}
+                >
+                    {orderSummary}
+                </Modal>
+                {burger}
             </Fragment>
         );
     }
