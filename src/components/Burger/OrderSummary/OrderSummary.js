@@ -11,6 +11,7 @@ class OrderSummary extends Component {
     }
     render() {
         const ingredientSummary = this.props.ingredients;
+
         let result = ingredientSummary.map((ing, index) => {
             return (
                 <li key={index}>
