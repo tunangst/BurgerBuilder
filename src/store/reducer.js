@@ -65,7 +65,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-            //'bun-bottom'
             return {
                 ...state,
                 ingredients: checkIngredients,

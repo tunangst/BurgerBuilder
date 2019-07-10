@@ -40,7 +40,6 @@ class Checkout extends Component {
         return (
             <div>
                 <CheckoutSummary
-                    // ingredients={this.state.ingredients}
                     ingredients={this.props.ings}
                     checkoutCanceled={this.handleCheckoutCancel}
                     checkoutContinued={this.handleCheckoutContinue}
@@ -48,15 +47,6 @@ class Checkout extends Component {
                 <Route
                     path={this.props.match.url + '/contact-data'}
                     component={ContactData}
-                    render={
-                        // (props) => <ContactData ingredients={this.state.ingredients}
-                        (props) => <ContactData ingredients={this.props.ings}
-                            // price={this.state.totalPrice}
-                            price={this.props.price}
-                            {...props}
-                        />
-                    }
-
                 />
             </div>
         );

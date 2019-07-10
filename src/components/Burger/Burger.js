@@ -9,7 +9,6 @@ const Burger = (props) => {
         return <BurgerIngredient key={ing + index} type={ing} />;
     });
 
-    // console.log(listIngredients)
     if (listIngredients.length === 0) {
         listIngredients = <p>Please build your burger from the ground up!</p>
     }

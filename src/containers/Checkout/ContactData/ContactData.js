@@ -140,9 +140,6 @@ class ContactData extends Component {
       return true;
     }
     if (validation.required) {
-      //   if (value.trim() !== '') {
-      // isValid = true;
-      //   }
       isValid = value.trim() !== '';
     }
     if (validation.exactLength) {
