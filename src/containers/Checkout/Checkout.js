@@ -36,7 +36,6 @@ class Checkout extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div>
                 <CheckoutSummary
@@ -55,7 +54,7 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients
+        ings: state.burgerBuilder.ingredients
     }
 };
 

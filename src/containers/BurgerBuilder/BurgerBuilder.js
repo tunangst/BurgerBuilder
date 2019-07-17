@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 // import axios from '../../axios-orders';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/index';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -18,6 +18,7 @@ class BurgerBuilder extends Component {
     }
     componentDidMount() {
         console.log(this.props);
+
         // axios.get('https://burger-builder-47451.firebaseio.com/ingredientCount.json')
         //     .then(response => {
         //         console.log(response)
@@ -102,22 +103,17 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     //maps "ings" to redux state.ingredients for this module
     return {
-        ingCount: state.ingredientCount,
-        ings: state.ingredients,
-        price: state.totalPrice
+        ingCount: state.burgerBuilder.ingredientCount,
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     }
 }
 const mapDispatchToProps = dispatch => {
     //import redux actions
     return {
-        onIngredientAdded: (ingName) => dispatch({
-            type: actionTypes.ADD_INGREDIENT,
-            ingredientName: ingName
-        }),
-        onIngredientRemoved: (ingName) => dispatch({
-            type: actionTypes.REMOVE_INGREDIENT,
-            ingredientName: ingName
-        })
+        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
     }
 }
 
