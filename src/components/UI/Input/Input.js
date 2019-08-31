@@ -5,7 +5,7 @@ import styles from './Input.module.css';
 const input = props => {
   let inputElement = null;
   let inputClasses = [styles.InputElement];
-  if (props.invalid && props.shouldValidate && !props.started) {
+  if (props.invalid && props.shouldValidate && props.started) {
     inputClasses.push(styles.Invalid);
   }
 
