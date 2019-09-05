@@ -23,7 +23,8 @@ const initialState = {
         "bun-bottom": 1,
     },
     totalPrice: 1.00,
-    error: false
+    error: false,
+    heldOrder: false
 }
 const INGREDIENT_PRICES = {
     lettuce: .70,
@@ -38,7 +39,6 @@ const INGREDIENT_PRICES = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
-
             return {
                 ...state,
                 ingredients: [
@@ -49,10 +49,10 @@ const reducer = (state = initialState, action) => {
                     ...state.ingredientCount,
                     [action.ingredientName]: state.ingredientCount[action.ingredientName] + 1
                 },
-                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+                heldOrder: true
             };
         case actionTypes.REMOVE_INGREDIENT:
-
             let checkIngredients = [...state.ingredients];
 
             if (state.ingredients.length > 0 && state.ingredientCount[action.ingredientName] > 0) {
@@ -65,7 +65,6 @@ const reducer = (state = initialState, action) => {
                     }
                 }
             }
-
             return {
                 ...state,
                 ingredients: checkIngredients,
@@ -73,14 +72,16 @@ const reducer = (state = initialState, action) => {
                     ...state.ingredientCount,
                     [action.ingredientName]: state.ingredientCount[action.ingredientName] - 1
                 },
-                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
+                heldOrder: true
             };
         case actionTypes.SET_INGREDIENTS:
             return {
                 ...state,
                 ingredients: action.ingredients,
                 totalPrice: 1.00,
-                error: false
+                error: false,
+                heldOrder: false
             };
         // case actionTypes.FETCH_INGREDIENTS_FAILED:
         //     return {

@@ -4,34 +4,8 @@ import { connect } from 'react-redux';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
-import * as actions from '../../store/actions/index';
-
 
 class Checkout extends Component {
-    // state = {
-    //     ingredients: [],
-    //     totalPrice: 0
-    // }
-    // componentDidMount() {
-    //     const query = new URLSearchParams(this.props.location.search);
-
-    //     let foundIngredients = [];
-    //     let price = 0;
-
-    //     for (let param of query.entries()) {
-    //         foundIngredients = param[0].split('>');
-    //         foundIngredients.pop();
-
-    //         price = +param[1];
-
-    //     }
-
-    //     this.setState({ ingredients: foundIngredients, totalPrice: price });
-    // }
-
-    // componentDidMount = () => {
-    //     this.props.onInitPurchase();
-    // }
     handleCheckoutCancel = () => {
         this.props.history.goBack();
     }

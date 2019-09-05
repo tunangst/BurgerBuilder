@@ -7,7 +7,7 @@ import Button from '../../UI/Button/Button';
 class OrderSummary extends Component {
     //converted to class just for debugging purposes to see when didUpdate fired
     componentDidUpdate() {
-        console.log('[OrderSummary] didUpdate');
+        // console.log('[OrderSummary] didUpdate');
     }
     render() {
         const ingredientSummary = this.props.ingredients;
